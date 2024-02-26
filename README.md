@@ -1,8 +1,3 @@
-# OnlineSurvey
-
-2020毕设，在线问卷调查网站
-
-演示地址 (Demo)：https://survey.yonatan.cn/
 
 > 用户账号/密码：demo / 202005
 > 管理员账号/密码：admin / 123456
@@ -22,16 +17,6 @@
 - 数据导出：报表下载（JPG），问卷打印（PDF）
 
 
-
-## 开发环境
-
-- jdk 13
-- Spring Boot
-- mysql 8
-- node v12.14.1
-- vue 2
-
-> 开发工具：IntelliJ IDEA 2019.3.1 x64 | Visual Studio Code 1.45.1 | Google Chrome 81.0.4044.138
 
 
 
