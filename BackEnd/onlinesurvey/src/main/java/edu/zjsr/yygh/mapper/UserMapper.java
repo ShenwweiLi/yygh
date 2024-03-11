@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface UserMapper {
     @Select("select * from t_user where username=#{username}")

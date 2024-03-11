@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.zjsr.yygh.mapper.ArticlesMapper">
+
+
+    <resultMap id="UserResultMap" type="edu.zjsr.yygh.entity.User">
+        <id column="authorId" property="id"/>
+        <result column="authorUsername" property="username"/>
+        <result column="authorEmail" property="email"/>
+        <result column="authorCreatedDate" property="createdDate"/>
+        <result column="authorLastLoginDate" property="lastLoginDate"/>
+        <result column="authorStatus" property="status"/>
+    </resultMap>
+
+    <resultMap id="ArticleResultMap" type="edu.zjsr.yygh.entity.Articles">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="popularity" property="popularity"/>
+        <result column="author_id" property="authorId"/>
+        <result column="summary" property="summary"/>
+        <result column="category" property="category"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="comment_count" property="commentCount"/>
+        <association property="user" resultMap="UserResultMap"/>
+    </resultMap>
+
+
+    <select id="selectByIdWithAuthor" resultMap="ArticleResultMap">
+        SELECT
+            a.*,
+            u.username as authorUsername,
+            u.email as authorEmail,
+            u.created_date as authorCreatedDate,
+            u.last_login_date as authorLastLoginDate,
+            u.status as authorStatus
+        FROM
+            t_articles a
+                INNER JOIN t_user u ON a.author_id = u.id
+        WHERE
+            a.id = #{id}
+    </select>
+
+</mapper>

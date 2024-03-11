@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface SurveyTagMapper {
     @Select("select tag_name from t_survey_tag " +

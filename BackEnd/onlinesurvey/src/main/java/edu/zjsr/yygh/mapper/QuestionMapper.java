@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface QuestionMapper {
     @Select("select * from t_question where survey_id=#{surveyId} order by order_id")

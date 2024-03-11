@@ -9,7 +9,9 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface SurveyMapper extends BaseMapper<Survey> {
     @Select("select * from t_survey where id=#{id} and visibility=1")

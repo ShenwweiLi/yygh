@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface QsRadioMapper {
     @Select("select title from t_qs_radio where id=#{id}")

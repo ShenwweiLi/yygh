@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface QuestionBankMapper {
     @Insert("insert into t_question_bank (id, belong_id, type, qs_item_id, folder) " +

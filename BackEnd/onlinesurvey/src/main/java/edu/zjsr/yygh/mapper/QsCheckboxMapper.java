@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author 24340
+ */
 @Repository
 public interface QsCheckboxMapper {
     @Select("select title from t_qs_checkbox where id=#{id}")

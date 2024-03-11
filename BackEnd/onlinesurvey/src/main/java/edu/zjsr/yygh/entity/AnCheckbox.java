@@ -1,5 +1,9 @@
 package edu.zjsr.yygh.entity;
 
+
+/**
+ * @author lss
+ */
 public class AnCheckbox {
     private String id;
 

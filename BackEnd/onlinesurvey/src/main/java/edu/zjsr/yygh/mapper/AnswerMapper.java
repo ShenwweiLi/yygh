@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 24340
+ */
 @Repository
 public interface AnswerMapper {
     @Insert("insert into t_answer value (#{id}, #{recycleId}, #{questionId}, #{type}, #{content})")

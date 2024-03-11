@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 24340
+ */
 @Repository
 public interface AnCheckboxMapper {
     @Select("select * from t_an_checkbox where qs_item_id=#{qsItemId} order by order_id")

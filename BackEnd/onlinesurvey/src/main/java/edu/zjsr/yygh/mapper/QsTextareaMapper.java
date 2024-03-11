@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
-
+/**
+ * @author 24340
+ */
 @Repository
 public interface QsTextareaMapper {
     @Select("select title from t_qs_textarea where id=#{id}")
