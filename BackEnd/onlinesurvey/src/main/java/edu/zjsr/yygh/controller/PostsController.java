@@ -5,6 +5,7 @@ import edu.zjsr.yygh.entity.Comments;
 import edu.zjsr.yygh.entity.Posts;
 import edu.zjsr.yygh.service.ICommentsService;
 import edu.zjsr.yygh.service.IPostsService;
+import edu.zjsr.yygh.vo.ArticleVO;
 import edu.zjsr.yygh.vo.CommentVo;
 import edu.zjsr.yygh.vo.PostsListVo;
 import edu.zjsr.yygh.vo.PostsVo;
@@ -23,13 +24,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("yygh/posts")
+@CrossOrigin
 public class PostsController {
     @Autowired
     IPostsService postsService;
     @Autowired
     ICommentsService commentsService;
 
-    @PostMapping("insertPost")
+    @PostMapping("insertOrUpdatePost")
     public Message<Posts> insertPost(@RequestBody Posts post){
 
         boolean isSave = postsService.saveOrUpdate(post);
@@ -47,14 +49,25 @@ public class PostsController {
     }
 
     @GetMapping("listPost")
-    public Message<PostsListVo> list(@RequestParam String PostName, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+    @CrossOrigin
+    public Message<PostsListVo> list(@RequestParam(value = "search",required = false) String PostName, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
                                      @RequestParam(value = "pageSize", defaultValue = "5") int pageSize){
         Message<PostsListVo> response = new Message<>();
-        response.setData(postsService.selectPostList(currentPage,pageSize,PostName));
-        return response ;
+        PostsListVo postsListVo = postsService.selectPostList(currentPage,pageSize,PostName);
+        response.setData(postsListVo);
+        if (postsListVo != null && postsListVo.getPostsList() != null && !postsListVo.getPostsList().isEmpty()) {
+            response.setCode("200");
+            response.setMsg("Success");
+            response.setData(postsListVo);
+        } else {
+            response.setCode("204");
+            response.setMsg("No Content");
+            response.setData(null);
+        }
+        return response;
     }
 
-    @GetMapping("getPostById")
+        @GetMapping("getPostById")
     public Message<PostsVo> getPostById(@RequestParam("PostId") Integer postId){
         Message<PostsVo> response = new Message<>();
         // 获取帖子详情
@@ -67,11 +80,19 @@ public class PostsController {
         postWithCommentsDTO.setPosts(post);
         postWithCommentsDTO.setCommentsList(comments);
 
-
+            response.setCode("200");
+            response.setMsg("Success");
         response.setData(postWithCommentsDTO);
 
         return response;
     }
 
 
+    @PostMapping("delPost")
+    public Message<PostsListVo> delPost(@RequestBody Posts posts){
+        Message<PostsListVo> response = new Message<>();
+        postsService.removeById(posts);
+        response.setMsg("删除成功");
+        return response ;
+    }
 }

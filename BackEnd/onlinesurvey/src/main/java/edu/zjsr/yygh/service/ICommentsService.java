@@ -2,6 +2,7 @@ package edu.zjsr.yygh.service;
 
 import edu.zjsr.yygh.entity.Comments;
 import com.baomidou.mybatisplus.extension.service.IService;
+import edu.zjsr.yygh.vo.CommentListVo;
 import edu.zjsr.yygh.vo.CommentVo;
 import edu.zjsr.yygh.vo.PostsVo;
 
@@ -18,4 +19,6 @@ import java.util.List;
 public interface ICommentsService extends IService<Comments> {
 
     List<CommentVo> selectCommentByPostIdList(Integer postId);
+
+    CommentListVo getCommentsWithPagination(int currentPage, int pageSize, int postId);
 }

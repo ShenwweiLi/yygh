@@ -2,6 +2,7 @@ package edu.zjsr.yygh.entity;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,53 +13,63 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author 郑为中
+ * @Author lishishan
+ * @date 2024/3/13/16:15
  */
 @Data
-@TableName("a_doctor")
-@ApiModel(value = "医生")
+@TableName("t_doctor")
 public class Doctor   {
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 主键id
+     */
+    @TableId
+    private String id;
+    /**
+     * 医生工号
+     */
 
-    @ApiModelProperty(value = "医生姓名")
-    private String doctorName;
+    private String yishenggonghao;
 
-    @ApiModelProperty(value = "医生年龄")
-    private int age;
+    /**
+     * 密码
+     */
 
-    @ApiModelProperty(value = "学历学位")
-    private String education;
+    private String mima;
 
-    @ApiModelProperty(value = "开始工作时间")
-    private String workDate;
+    /**
+     * 医生姓名
+     */
 
-    @ApiModelProperty(value = "毕业学校")
-    private String university;
+    private String yishengxingming;
 
-    @ApiModelProperty(value = "职称")
-    private String postLevel;
+    /**
+     * 性别
+     */
 
-    @ApiModelProperty(value = "专业")
-    private String major;
+    private String xingbie;
 
-    @ApiModelProperty(value = "所属科室ID")
-    private String subjectId;
+    /**
+     * 职称
+     */
 
-    @ApiModelProperty(value = "所属科室")
-    private String subjectName;
+    private String zhicheng;
 
-    @ApiModelProperty(value = "医生介绍")
-    private String about;
+    /**
+     * 科室
+     */
 
-    @ApiModelProperty(value = "医生照片")
-    private String photo;
+    private String keshi;
 
-    @ApiModelProperty(value = "挂号费用")
-    private BigDecimal orderMoney;
+    /**
+     * 手机
+     */
 
-    @Transient
-    @TableField(exist=false)
-    @ApiModelProperty(value = "是否当日")
-    private String noeDate;
+    private String shouji;
+
+    /**
+     * 身份证
+     */
+
+    private String shenfenzheng;
 }

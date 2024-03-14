@@ -77,6 +77,30 @@ public class ArticlesController {
         }
         return message;
     }
+    @PostMapping("/updateArticle")
+    @CrossOrigin
+    public Message<Articles> updateArticle(@RequestBody Articles newArticle) {
+        Message<Articles> message = new Message<>();
+        boolean isUpdate = articlesService.updateById(newArticle);
+        if (isUpdate) {
+            message.setCode("200");
+            message.setMsg("Article update successfully");
+            message.setData(newArticle); // 或者返回保存后的文章对象（如果它包含了新生成的ID等信息）
+        } else {
+            message.setCode("500");
+            message.setMsg("An error occurred while updating the article");
+            message.setData(null);
+        }
+        return message;
+    }
+
+    @PostMapping("/delArticle")
+    @CrossOrigin
+    public Message<Articles> delArticle(@RequestBody Articles newArticle) {
+        Message<Articles> message = new Message<>();
+        articlesService.removeById(newArticle.getId());
+        return message;
+    }
 
 
 }

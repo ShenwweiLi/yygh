@@ -7,13 +7,13 @@ import edu.zjsr.yygh.entity.Posts;
 import edu.zjsr.yygh.service.ICommentsService;
 import edu.zjsr.yygh.service.INotificationsService;
 import edu.zjsr.yygh.service.IPostsService;
+import edu.zjsr.yygh.vo.ArticleVO;
+import edu.zjsr.yygh.vo.CommentListVo;
+import edu.zjsr.yygh.vo.CommentVo;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,13 +60,41 @@ public class CommentsController {
             // 帖子拥有者ID
             notificationInfo.put("targetUserId", posts.getUserId());
 
-            // 发送消息
-            rabbitTemplate.convertAndSend("notificationExchange", "notificationRoutingKey", notificationInfo);
-        }else {
+          }else {
             response.setCode("500");
             response.setMsg("添加评论失败");
             response.setData(comment);
         }
+        return response;
+    }
+
+
+    @PostMapping("delComment")
+    public Message<Comments> delComment(@RequestBody Comments comment) {
+        Message<Comments> response = new Message<>();
+        postsService.removeById(comment.getId());
+        return response;
+    }
+
+    @GetMapping("/commentsList")
+    @CrossOrigin
+    public Message<CommentListVo> getCommentsWithPagination(
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
+            @RequestParam(value = "PostId",required = false) int PostId) {
+        CommentListVo commentListVo = commentsService.getCommentsWithPagination(currentPage, pageSize,PostId);
+        Message<CommentListVo> response = new Message<>();
+
+        if (commentListVo != null && commentListVo.getCommentVoList() != null && !commentListVo.getCommentVoList().isEmpty()) {
+            response.setCode("200");
+            response.setMsg("Success");
+            response.setData(commentListVo);
+        } else {
+            response.setCode("204");
+            response.setMsg("No Content");
+            response.setData(null);
+        }
+
         return response;
     }
 }
