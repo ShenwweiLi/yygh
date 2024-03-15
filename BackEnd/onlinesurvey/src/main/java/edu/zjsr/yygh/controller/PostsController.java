@@ -1,5 +1,10 @@
 package edu.zjsr.yygh.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import edu.zjsr.common.utils.Message;
 import edu.zjsr.yygh.entity.Comments;
 import edu.zjsr.yygh.entity.Posts;
@@ -13,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,9 +37,30 @@ public class PostsController {
     @Autowired
     ICommentsService commentsService;
 
-    @PostMapping("insertOrUpdatePost")
-    public Message<Posts> insertPost(@RequestBody Posts post){
 
+    String secret = "survey.yonatan.cn.secret";
+    @PostMapping("insertOrUpdatePost")
+    public Message<Posts> insertPost(@RequestHeader(value = "Authorization") String token , @RequestBody Posts post){
+        // 使用相同的密钥和算法构建JWT验证器
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        JWTVerifier verifier = JWT.require(algorithm).build();
+
+        // 验证token并解析token
+        DecodedJWT jwt = verifier.verify(token);
+
+        // 获取token中包含的所有claims
+        Map<String, Claim> claims = jwt.getClaims();
+
+        // 遍历claims，获取键值对
+        for (Map.Entry<String, Claim> entry : claims.entrySet()) {
+            System.out.println(entry.getKey() + " = " + entry.getValue().asString());
+        }
+
+        // 直接通过claim名称获取特定的claim
+        String userId = jwt.getClaim("id").asString();
+
+        post.setUserId(userId);
+        System.out.println(post);
         boolean isSave = postsService.saveOrUpdate(post);
         Message<Posts> response = new Message<>();
         if (isSave){

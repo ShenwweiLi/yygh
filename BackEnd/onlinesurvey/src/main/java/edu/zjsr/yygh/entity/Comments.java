@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("t_comments")
+@Data
 public class Comments implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,6 +30,7 @@ public class Comments implements Serializable {
     private Integer id;
 
     private Integer postId;
+
 
     private String userId;
 

@@ -1,5 +1,11 @@
 package edu.zjsr.yygh.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import edu.zjsr.common.utils.Message;
 import edu.zjsr.yygh.entity.Comments;
 import edu.zjsr.yygh.entity.Notifications;
@@ -28,20 +34,40 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("yygh/comments")
+@CrossOrigin
 public class CommentsController {
     @Autowired
     ICommentsService commentsService;
     @Autowired
     INotificationsService notificationsService;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+
     @Autowired
     IPostsService postsService;
 
-
+    String secret = "survey.yonatan.cn.secret";
     @PostMapping("addComment")
-    public Message<Comments> addComment(@RequestBody Comments comment){
+    @CrossOrigin
+    public Message<Comments> addComment(@RequestBody Comments comment,@RequestHeader(value="Authorization") String token){
+        // 使用相同的密钥和算法构建JWT验证器
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        JWTVerifier verifier = JWT.require(algorithm).build();
+
+        // 验证token并解析token
+        DecodedJWT jwt = verifier.verify(token);
+
+        // 获取token中包含的所有claims
+        Map<String, Claim> claims = jwt.getClaims();
+
+        // 遍历claims，获取键值对
+        for (Map.Entry<String, Claim> entry : claims.entrySet()) {
+            System.out.println(entry.getKey() + " = " + entry.getValue().asString());
+        }
+
+        // 直接通过claim名称获取特定的claim
+        String userId = jwt.getClaim("id").asString();
         Message<Comments> response = new Message<>();
+        comment.setUserId(userId);
+        System.out.println(comment.toString());
         boolean isSave = commentsService.save(comment);
         if (isSave){
             response.setCode("200");
@@ -70,6 +96,7 @@ public class CommentsController {
 
 
     @PostMapping("delComment")
+    @CrossOrigin
     public Message<Comments> delComment(@RequestBody Comments comment) {
         Message<Comments> response = new Message<>();
         postsService.removeById(comment.getId());
