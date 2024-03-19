@@ -23,7 +23,10 @@
               <i class="el-icon-menu"></i>
               <span slot="title">问卷管理</span>
             </el-menu-item>
-          </el-menu>
+            <el-menu-item index="/admin/news">  
+              <i class="el-icon-menu"></i>
+              <span slot="title">文章管理</span>
+            </el-menu-item></el-menu>
         </el-aside>
         <el-container>
           <el-header>
