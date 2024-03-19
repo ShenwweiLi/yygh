@@ -44,4 +44,48 @@ public class YuYueGuaHaoServiceImpl extends ServiceImpl<YuYueGuaHaoMapper, YuYue
 
         return guaHaoListVo;
     }
+
+    @Override
+    public YuYueGuaHaoListVo findListrWithPaginationWithUser(int currentPage, int pageSize, String search, String userId) {
+        Page<YuYueGuaHao> page = new Page<>(currentPage, pageSize);
+        QueryWrapper<YuYueGuaHao> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("zhanghao",userId);
+        // 如果有搜索词，增加名字字段的like条件
+        if (search != null && !search.trim().isEmpty()) {
+            queryWrapper.like("title", search); // 假设文章表中的名称字段为"name"
+        }
+        // 执行分页查询
+        IPage<YuYueGuaHao> guaHaoPage = this.page(page, queryWrapper);
+
+        // 构建VO并返回
+        YuYueGuaHaoListVo guaHaoListVo = new YuYueGuaHaoListVo();
+        guaHaoListVo.setYueGuaHaoList(guaHaoPage.getRecords());
+        guaHaoListVo.setTotal(guaHaoPage.getTotal());
+        guaHaoListVo.setCurrent((int) guaHaoPage.getCurrent());
+        guaHaoListVo.setPages((int) guaHaoPage.getPages());
+
+        return guaHaoListVo;
+    }
+
+    @Override
+    public YuYueGuaHaoListVo findListrWithPaginationWithDoctor(int currentPage, int pageSize, String search, String userId) {
+        Page<YuYueGuaHao> page = new Page<>(currentPage, pageSize);
+        QueryWrapper<YuYueGuaHao> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("yishenggonghao",userId);
+        // 如果有搜索词，增加名字字段的like条件
+        if (search != null && !search.trim().isEmpty()) {
+            queryWrapper.like("title", search); // 假设文章表中的名称字段为"name"
+        }
+        // 执行分页查询
+        IPage<YuYueGuaHao> guaHaoPage = this.page(page, queryWrapper);
+
+        // 构建VO并返回
+        YuYueGuaHaoListVo guaHaoListVo = new YuYueGuaHaoListVo();
+        guaHaoListVo.setYueGuaHaoList(guaHaoPage.getRecords());
+        guaHaoListVo.setTotal(guaHaoPage.getTotal());
+        guaHaoListVo.setCurrent((int) guaHaoPage.getCurrent());
+        guaHaoListVo.setPages((int) guaHaoPage.getPages());
+
+        return guaHaoListVo;
+    }
 }

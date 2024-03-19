@@ -80,14 +80,9 @@ public class YuYueGuaHao {
 
     private String shhf;
 
-    /**
-     * 是否支付
-     */
-
-    private String ispay;
 
 
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm")
     @DateTimeFormat
     private Date addtime;
 }

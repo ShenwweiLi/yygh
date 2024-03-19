@@ -93,6 +93,14 @@ const routes = [
           title: "我的问卷"
         }
       },
+      {
+        path: "mineGuaHao",
+        name: "mineGuaHao",
+        component: () => import("../views/home/mineGuaHao.vue"),
+        meta: {
+          title: "我的预约"
+        }
+      },
 
       {
         path: "search",
@@ -165,6 +173,24 @@ const routes = [
           import("../views/news/postPage.vue"),
         meta: {
           title: "论坛"
+        }
+      },
+      {
+        path: "guahaoPage",
+        name: "guahaoPage",
+        component: () =>
+          import("../views/news/guahaoPage.vue"),
+        meta: {
+          title: "医生列表"
+        }
+      },
+      {
+        path: "myGuaHao",
+        name: "myGuaHao",
+        component: () =>
+          import("../views/news/myGuaHao.vue"),
+        meta: {
+          title: "我的挂号"
         }
       },
     ]
@@ -269,6 +295,11 @@ const routes = [
         path: "survey",
         name: "survey",
         component: () => import("../views/admin/survey")
+      },
+      {
+        path: "news",
+        name: "news",
+        component: () => import("../views/admin/news")
       }
     ]
   }

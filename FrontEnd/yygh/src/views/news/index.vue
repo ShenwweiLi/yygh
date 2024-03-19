@@ -23,6 +23,10 @@
         <el-menu-item index="/news/newsPage">新闻</el-menu-item>
         <el-menu-item index="/news/listsurvey">健康问卷</el-menu-item>
         <el-menu-item index="/news/postPage">论坛</el-menu-item>
+        <el-menu-item index="/news/guahaoPage">医生列表</el-menu-item>
+        <el-menu-item index="/news/myGuaHao">我的预约</el-menu-item>
+
+        
         <!-- <el-menu-item index="/home/rank">网站动态</el-menu-item> -->
         <el-menu-item style="float:right; padding:0; margin-right:20px;">
           <div class="account">

@@ -43,7 +43,7 @@
             v-model="scope.row[item.prop]"
             :active-value="1"
             :inactive-value="0"
-            active-color="#13ce66"
+            active-color=" #13ce66"
             inactive-color="#ff6161"
             @change="handleRowData(scope.$index, scope.row, item.emit)"
           ></el-switch>

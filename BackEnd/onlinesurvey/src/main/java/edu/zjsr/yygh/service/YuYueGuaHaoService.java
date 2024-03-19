@@ -11,4 +11,8 @@ import edu.zjsr.yygh.vo.YuYueGuaHaoListVo;
  */
 public interface YuYueGuaHaoService  extends IService<YuYueGuaHao> {
     YuYueGuaHaoListVo findListrWithPagination(int currentPage, int pageSize, String search);
+
+    YuYueGuaHaoListVo findListrWithPaginationWithUser(int currentPage, int pageSize, String search, String userId);
+
+    YuYueGuaHaoListVo findListrWithPaginationWithDoctor(int currentPage, int pageSize, String search, String userId);
 }
