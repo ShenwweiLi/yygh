@@ -99,6 +99,7 @@ public class ArticlesController {
     public Message<Articles> delArticle(@RequestBody Articles newArticle) {
         Message<Articles> message = new Message<>();
         articlesService.removeById(newArticle.getId());
+        message.setCode("200");
         return message;
     }
 

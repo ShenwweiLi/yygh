@@ -218,7 +218,6 @@ public class YuYueGuaHaoController {
             response.setMsg("No Content");
             response.setData(null);
         }
-
         return response;
     }
 }
