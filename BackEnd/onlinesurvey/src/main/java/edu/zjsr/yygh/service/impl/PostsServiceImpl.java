@@ -3,14 +3,18 @@ package edu.zjsr.yygh.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import edu.zjsr.yygh.config.UserRole;
 import edu.zjsr.yygh.entity.Posts;
 import edu.zjsr.yygh.mapper.PostsMapper;
 import edu.zjsr.yygh.service.IPostsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import edu.zjsr.yygh.vo.ListPostsVo;
 import edu.zjsr.yygh.vo.PostsListVo;
+import edu.zjsr.yygh.vo.PostsVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -48,6 +52,17 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         postsListVO.setPages((int) PostsPage.getPages());
 
         return postsListVO;
+    }
+
+    @Override
+    public List<ListPostsVo> findAllPost(UserRole role, Integer page, Integer size) {
+        Integer start = (page - 1) * size;
+        return postsMapper.findAllPostsByStatus(role.getRoleCode(), start, size);
+    }
+
+    @Override
+    public Integer getCountPost() {
+        return postsMapper.getCountPost();
     }
 
 

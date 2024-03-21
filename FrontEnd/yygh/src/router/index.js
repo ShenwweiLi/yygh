@@ -300,6 +300,16 @@ const routes = [
         path: "news",
         name: "news",
         component: () => import("../views/admin/news")
+      },
+      {
+        path: "guahao",
+        name: "guahao",
+        component: () => import("../views/admin/guahao")
+      },
+      {
+        path: "post",
+        name: "post",
+        component: () => import("../views/admin/post")
       }
     ]
   }

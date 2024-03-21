@@ -1,19 +1,18 @@
 package edu.zjsr.yygh.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import edu.zjsr.common.utils.Message;
+import edu.zjsr.yygh.config.UserRole;
 import edu.zjsr.yygh.entity.Comments;
 import edu.zjsr.yygh.entity.Posts;
 import edu.zjsr.yygh.service.ICommentsService;
 import edu.zjsr.yygh.service.IPostsService;
-import edu.zjsr.yygh.vo.ArticleVO;
-import edu.zjsr.yygh.vo.CommentVo;
-import edu.zjsr.yygh.vo.PostsListVo;
-import edu.zjsr.yygh.vo.PostsVo;
+import edu.zjsr.yygh.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -93,8 +92,28 @@ public class PostsController {
         }
         return response;
     }
+    @PostMapping("listAllPost")
+    @CrossOrigin
+    public Message listAllPost(@RequestParam Integer page,
+                               @RequestParam Integer size) {
+        Message message = new Message();
+        try {
+            List<ListPostsVo> userList = postsService.findAllPost(UserRole.ROLE_SYS_ADMIN, page, size);
+            Integer count = postsService.getCountPost();
+            JSONObject data = new JSONObject();
+            data.put("postList", userList);
+            data.put("count", count);
+            message.setCode("200");
+            message.setMsg("ok");
+            message.setData(data);
+        } catch (Exception e) {
+            throw e;
+        }
+        return message;
+    }
 
-        @GetMapping("getPostById")
+
+    @GetMapping("getPostById")
     public Message<PostsVo> getPostById(@RequestParam("PostId") Integer postId){
         Message<PostsVo> response = new Message<>();
         // 获取帖子详情

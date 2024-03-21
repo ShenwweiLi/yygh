@@ -26,7 +26,17 @@
             <el-menu-item index="/admin/news">  
               <i class="el-icon-menu"></i>
               <span slot="title">文章管理</span>
-            </el-menu-item></el-menu>
+            </el-menu-item>
+            <el-menu-item index="/admin/guahao">  
+              <i class="el-icon-menu"></i>
+              <span slot="title">预约管理</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/post">  
+              <i class="el-icon-menu"></i>
+              <span slot="title">帖子管理</span>
+            </el-menu-item>
+          </el-menu>
+            
         </el-aside>
         <el-container>
           <el-header>

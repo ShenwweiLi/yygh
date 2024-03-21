@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <router-link to="/forum" class="back-link">返回论坛列表</router-link>
+    <router-link to="/news/postPage" class="back-link">返回论坛列表</router-link>
   </div>
 </template>
 
