@@ -113,7 +113,7 @@ public class PostsController {
     }
 
 
-    @GetMapping("getPostById")
+    @GetMapping("getPostById")  
     public Message<PostsVo> getPostById(@RequestParam("PostId") Integer postId){
         Message<PostsVo> response = new Message<>();
         // 获取帖子详情
